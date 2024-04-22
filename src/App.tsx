@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { Row } from './types';
+import { AlgoBase } from './algobase';
 const tags = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 function App() {
 
@@ -31,6 +32,10 @@ function App() {
     setCols(cols+1)
   }
 
+  const optimize = (rows:Row[])=>{
+    const a = JSON.parse(JSON.stringify(rows))
+    const result = AlgoBase(a)
+  }
 const editValue = (value:number,allRow:Row[] ,row:Row, indexData:number):Row[]=>{ 
   const updatedRows = allRow.map((el:Row)=>{
     if(el === row){
@@ -78,6 +83,7 @@ const makeBody = ():JSX.Element =>{
         {makeHead()}
         {makeBody()}
       </table>
+      <button onClick={()=>optimize(rows)}>optimize</button>
     </div>
   )
 }
