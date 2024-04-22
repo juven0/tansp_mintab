@@ -4,7 +4,6 @@ import { Row } from './types';
 const tags = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 function App() {
 
-  
   const [cols, setCols] = useState(1)
   const [rows, setRows] = useState<Row[]>([{
     tag: '#',
@@ -18,7 +17,6 @@ function App() {
       tag: rows.length == 1? tags[0]: tags[rows.length-1],
       length: cols,
       data: data,
-      dmd:0,
       isEditable: false
     } 
     const lastRow = rows[rows.length-1]

@@ -4,3 +4,10 @@ export type Row ={
     data: number[]
     isEditable: boolean | false
 }
+
+export type Item = {
+    tag: string
+    indexDmd:number
+    valueTag: number
+    quantiter:number
+}
