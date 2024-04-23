@@ -28,7 +28,6 @@ export const AlgoBase = (rw:Row[]):Item[]=>{
                 }
             }
             rw[index].data[indeMin] = Infinity
-           
         }
     }
     console.log(items)
