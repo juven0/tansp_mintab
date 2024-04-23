@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import './App.css'
+import './styles/outstyle.css'
 import { Item, Row } from './types';
 import { AlgoBase, coutTotal } from './algobase';
+import Hero from './pages/hero/hero';
 const tags = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 function App() {
   const [cout, setCout] = useState(0)
@@ -80,6 +82,7 @@ const makeBody = ():JSX.Element =>{
 
   return (
     <div>
+      <Hero/>
       <button onClick={()=>addCol()}>add column</button>
       <button onClick={()=>addRow()}>add rows</button>
       <table border={1}>
