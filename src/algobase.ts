@@ -19,15 +19,16 @@ export const AlgoBase = (rw:Row[]):Item[]=>{
                 quantiter:stk[index]<=dmd[indeMin]?stk[index]:dmd[indeMin],
             }
             items = [...items, newItem]
+            const hstk = stk[index]
             stk[index] = stk[index]>=dmd[indeMin]?stk[index]-dmd[indeMin]:0
-            dmd[indeMin] = stk[index]<=dmd[indeMin]?dmd[indeMin]-stk[index]:0
+            dmd[indeMin] = hstk<=dmd[indeMin]?dmd[indeMin]-hstk:0
             if(dmd[indeMin] == 0){
                 for (let i = 0; i<rw.length-1; i++){
                     rw[i].data[indeMin]= Infinity
                 }
             }
             rw[index].data[indeMin] = Infinity
-            console.log(dmd)
+           
         }
     }
     console.log(items)
