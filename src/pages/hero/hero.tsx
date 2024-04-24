@@ -13,7 +13,7 @@ export const Hero = ():JSX.Element=> {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="bg-white">
+    <div className="max-h-1/4">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
@@ -29,7 +29,7 @@ export const Hero = ():JSX.Element=> {
           <div className="flex lg:hidden">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-purple-700"
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
@@ -56,7 +56,7 @@ export const Hero = ():JSX.Element=> {
               </a>
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                className="-m-2.5 rounded-md p-2.5 text-white-700"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
@@ -66,7 +66,7 @@ export const Hero = ():JSX.Element=> {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
+                  {/* {navigation.map((item) => (
                     <a
                       key={item.name}
                       href={item.href}
@@ -74,7 +74,7 @@ export const Hero = ():JSX.Element=> {
                     >
                       {item.name}
                     </a>
-                  ))}
+                  ))} */}
                 </div>
                 <div className="py-6">
                   <a
@@ -90,7 +90,7 @@ export const Hero = ():JSX.Element=> {
         </Dialog>
       </header>
 
-      <div className="relative isolate px-6 pt-14 lg:px-8">
+      <div className="-translate-y-40 relative isolate px-6 pt-14 lg:px-8">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
@@ -103,11 +103,11 @@ export const Hero = ():JSX.Element=> {
             }}
           />
         </div>
-        <div className="mx-auto max-w-4xl py-32 sm:py-48 lg:py-56">
+        <div className="mx-auto max-w-4xl max-h-200 py-32 sm:py-48 lg:py-56">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
             Nos dernières améliorations en optimisation de transport sont là!.{' '}
-              <a href="#" className="font-semibold text-indigo-600">
+              <a href="#" className="font-semibold text-purple-600">
                 <span className="absolute inset-0" aria-hidden="true" />
                 Read more <span aria-hidden="true">&rarr;</span>
               </a>
@@ -118,16 +118,16 @@ export const Hero = ():JSX.Element=> {
             Optimisation de Transport Simplifiée pour Votre Logistique
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Bienvenue sur <span className='text-xl font-bold text-indigo-600'>OptiLogiPro</span>, où l'optimisation de transport devient simple et efficace. Libérez le potentiel de vos chaînes logistiques avec notre solution intuitive et puissante.
+              Bienvenue sur <span className='text-xl font-bold text-purple-600'>OptiLogiPro</span>, où l'optimisation de transport devient simple et efficace. Libérez le potentiel de vos chaînes logistiques avec notre solution intuitive et puissante.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="#"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
               >
                 Get started
               </a>
-              <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+              <a href="#" className="text-sm font-semibold leading-6 text-gray-100">
                 Learn more <span aria-hidden="true">→</span>
               </a>
             </div>

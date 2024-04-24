@@ -52,12 +52,12 @@ const editValue = (value:number,allRow:Row[] ,row:Row, indexData:number):Row[]=>
 }
 const makeHead = ():JSX.Element=>{
   return(
-    <tr>
-        <th>tag</th>
+    <tr className='text-lg'>
+        <th className=' block w-14 bg-gray-200 p-2'>tag</th>
           {Array.from({length:cols}, (_, index)=>(
-            index<cols-1?<th>{index+1}</th>:<th>dmd</th>
+            index<cols-1?<th className='m-5 bg-gray-200 p-2'>{index+1}</th>:<th className='m-5 bg-gray-200 p-2' >dmd</th>
           ))}
-          <th>controle</th>
+          <th className='bg-gray-200 p-2'>controle</th>
     </tr>
   )
 }
@@ -67,9 +67,10 @@ const makeBody = ():JSX.Element =>{
     {rows.map((el:Row)=>{
       return(
         <tr>
-          <td>{el.tag}</td>
+          <td className='w-12 text-lg font-extrabold'>{el.tag}</td>
           {Array.from({length:cols}, (_, index)=>(
-            <td><input type="number" value={el.data[index]}onChange={(e)=> setRows(editValue(parseInt(e.target.value),rows,el, index))}/></td>
+            <td className=''><input className='text-lg w-16 p-1  h-full flex justify-center items-center'
+             type="number" value={el.data[index]}onChange={(e)=> setRows(editValue(parseInt(e.target.value),rows,el, index))}/></td>
           ))}
           <td><button>{el.isEditable?'edit':'change'}</button></td>
         </tr>
@@ -83,15 +84,31 @@ const makeBody = ():JSX.Element =>{
   return (
     <div>
       <Hero/>
-      <button onClick={()=>addCol()}>add column</button>
-      <button onClick={()=>addRow()}>add rows</button>
-      <table border={1}>
-        {makeHead()}
-        {makeBody()}
-      </table>
-      <button onClick={()=>optimize(rows)}>optimize</button>
-
-      <label>solution de base {cout?cout:0}</label>
+      <div className="-translate-y-60 w-full flex flex-col justify-center items-center ">
+        <div className='flex w-1/2 justify-center z-20 mb-10'>
+          <button className='w-48 outline-0 shadow-lg mx-2.5 bg-gray-300 border-none font-bold text-white'
+            onClick={()=>addCol()}>add column</button>
+          <button className='w-48 shadow-lg mx-2.5 bg-gray-300 border-none font-bold text-white'
+            onClick={()=>addRow()}>add rows</button>
+        </div>
+        <table className='mb-14'
+         border={1}>
+          {makeHead()}
+          {makeBody()}
+        </table>
+        <button className='bg-purple-600 w-52 text-white'
+          onClick={()=>optimize(rows)}>optimize</button>
+        <div className='w-full relative mt-10' >
+          <div className='absolute top-0 left-0 w-full flex justify-start flex-col items-start'>
+          <label className='block   text-2xl font-bold text-purple-500 '>Resultats</label>
+          <label className='block text-xl font-semibold'>Solution de base</label>
+          {cout? <p>teny kely manazave ny resulta azo ...</p>:''}
+          <p className='mt-10 p-2 text-gray-100 text-3xl font-bold bg-green-500 rounded'>{cout?`Z = ${cout}`:''}</p>
+          </div>
+          
+        </div>
+        
+        </div>
     </div>
   )
 }
