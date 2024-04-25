@@ -1,22 +1,39 @@
-import { useState } from 'react'
-import './App.css'
-import './styles/outstyle.css'
+import { useEffect, useState } from 'react'
 import { Item, Row } from './types';
 import { AlgoBase, coutTotal, makeGraphEdge, makeGrapheNode } from './algobase';
 import Hero from './pages/hero/hero';
 import ReactFlow, { Background, Edge, Node } from 'reactflow';
 import CustomeNode from './pages/flow/node'
+import useStore from './pages/flow/store';
+
+
 import 'reactflow/dist/style.css';
+import './App.css'
+import './styles/outstyle.css'
+import { useShallow } from 'zustand/react/shallow';
+
 
 const tags = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const nodeType = {
   custom:CustomeNode
 }
+
+const selector = (state) => ({
+  nodes: state.nodes,
+  edges: state.edges,
+  items: state.items,
+  onNodesChange: state.onNodesChange,
+  onEdgesChange: state.onEdgesChange,
+  onConnect: state.onConnect,
+  setNodes: state.setNodes,
+  setEdges: state.setEdges,
+  setItems: state. setItems,
+});
+
+
 function App() {
   const [cout, setCout] = useState(0)
-  const [items, setItems]= useState<Item[]>([])
-  const [nodes, setNodes] =useState<Node[]>([])
-  const [edges, setEdges] = useState<Edge[]>([])
+  // const [items, setItems]= useState<Item[]>([])
   const [cols, setCols] = useState(1)
   const [rows, setRows] = useState<Row[]>([{
     tag: '#',
@@ -24,13 +41,18 @@ function App() {
     data: Array.from({length: cols}).fill(0),
     isEditable: false
   } ])
+
+  const { nodes, items, edges, onNodesChange, onEdgesChange, onConnect,setNodes , setEdges ,setItems} = useStore(
+    useShallow(selector),
+  );
+  
   const addRow = ()=>{
     const data:number[] = Array.from({length: cols}).fill(0)
     const newrows:Row ={
       tag: rows.length == 1? tags[0]: tags[rows.length-1],
       length: cols,
       data: data,
-      isEditable: false
+      isEditable: true
     } 
     const lastRow = rows[rows.length-1]
     rows.length<2?
@@ -48,9 +70,11 @@ function App() {
     const a = JSON.parse(JSON.stringify(rows))
     const result = AlgoBase(a)
     setItems(result)
+    items? console.log(items):null
     setCout(coutTotal(result))
-    setNodes(makeGrapheNode(items))
-    setEdges(makeGraphEdge(items))
+    setNodes(makeGrapheNode(result))
+    setEdges(makeGraphEdge(result))
+
   }
 const editValue = (value:number,allRow:Row[] ,row:Row, indexData:number):Row[]=>{ 
   const updatedRows = allRow.map((el:Row)=>{
@@ -62,23 +86,6 @@ const editValue = (value:number,allRow:Row[] ,row:Row, indexData:number):Row[]=>
   return updatedRows
 }
 
-const initialNodes = [
-  {
-    id: 'hidden-1',
-    type: 'input',
-    data: { label: 'Node 1' },
-    position: { x: 250, y: 5 },
-  },
-  { id: 'hidden-2', data: { label: 'Node 2' }, position: { x: 100, y: 100 } },
-  { id: 'hidden-3', data: { label: 'Node 3' }, position: { x: 400, y: 100 } },
-  { id: 'hidden-4', data: { label: 'Node 4' }, position: { x: 400, y: 200 } },
-];
-
-const initialEdges = [
-  { id: 'hidden-e1-2', source: 'hidden-1', target: 'hidden-2' },
-  { id: 'hidden-e1-3', source: 'hidden-1', target: 'hidden-3' },
-  { id: 'hidden-e3-4', source: 'hidden-3', target: 'hidden-4' },
-];
 
 const makeHead = ():JSX.Element=>{
   return(
@@ -99,7 +106,7 @@ const makeBody = ():JSX.Element =>{
         <tr>
           <td className='w-12 text-lg font-extrabold'>{el.tag}</td>
           {Array.from({length:cols}, (_, index)=>(
-            <td className=''><input className='text-lg w-16 p-1  h-full flex justify-center items-center'
+            <td className=''><input  className='text-lg w-16 p-1  h-full flex justify-center items-center'
              type="number" value={el.data[index]}onChange={(e)=> setRows(editValue(parseInt(e.target.value),rows,el, index))}/></td>
           ))}
           <td><button>{el.isEditable?'edit':'change'}</button></td>
@@ -139,11 +146,15 @@ const makeBody = ():JSX.Element =>{
         </div>
         </div>
         {nodes||edges?<div className='w-full h-96 flex items-center justify-center'>
-            <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                nodeTypes={nodeType}
-            >
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            nodeTypes={nodeType}
+            fitView
+          >
              <Background />
             </ReactFlow>
         </div>:''}

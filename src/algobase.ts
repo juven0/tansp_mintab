@@ -1,8 +1,8 @@
 import { Edge, Node } from 'reactflow'
 import { Item, Row } from './types'
 
+
 export const AlgoBase = (rw:Row[]):Item[]=>{
-    console.log("ao")
     let items:Item[] =[]
     let stk:number[] = []
     const dmd:number[] = JSON.parse(JSON.stringify(rw[rw.length-1].data))
@@ -31,7 +31,6 @@ export const AlgoBase = (rw:Row[]):Item[]=>{
             rw[index].data[indeMin] = Infinity
         }
     }
-    console.log(items)
     return items
 }
 
@@ -93,7 +92,7 @@ export const makeGrapheNode = (items: Item[]):Node[]=>{
             curentPosX2 +=cot
         }        
     })
-    console.log(nodes)
+    console.log(items)
     return nodes
 }
 
