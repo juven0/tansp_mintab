@@ -92,7 +92,6 @@ export const makeGrapheNode = (items: Item[]):Node[]=>{
             curentPosX2 +=cot
         }        
     })
-    console.log(items)
     return nodes
 }
 
@@ -102,6 +101,5 @@ export const makeGraphEdge = (items :Item[]):Edge[]=>{
         const newEdges:Edge =  { id: el.tag+el.indexDmd, source: el.tag, target: el.indexDmd.toString() }
         edges = [...edges, newEdges]
     })
-    console.log(edges)
     return edges
 }
