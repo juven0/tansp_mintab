@@ -2,12 +2,21 @@ import { useState } from 'react'
 import './App.css'
 import './styles/outstyle.css'
 import { Item, Row } from './types';
-import { AlgoBase, coutTotal } from './algobase';
+import { AlgoBase, coutTotal, makeGraphEdge, makeGrapheNode } from './algobase';
 import Hero from './pages/hero/hero';
+import ReactFlow, { Background, Edge, Node } from 'reactflow';
+import CustomeNode from './pages/flow/node'
+import 'reactflow/dist/style.css';
+
 const tags = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const nodeType = {
+  custom:CustomeNode
+}
 function App() {
   const [cout, setCout] = useState(0)
   const [items, setItems]= useState<Item[]>([])
+  const [nodes, setNodes] =useState<Node[]>([])
+  const [edges, setEdges] = useState<Edge[]>([])
   const [cols, setCols] = useState(1)
   const [rows, setRows] = useState<Row[]>([{
     tag: '#',
@@ -40,6 +49,8 @@ function App() {
     const result = AlgoBase(a)
     setItems(result)
     setCout(coutTotal(result))
+    setNodes(makeGrapheNode(items))
+    setEdges(makeGraphEdge(items))
   }
 const editValue = (value:number,allRow:Row[] ,row:Row, indexData:number):Row[]=>{ 
   const updatedRows = allRow.map((el:Row)=>{
@@ -50,6 +61,25 @@ const editValue = (value:number,allRow:Row[] ,row:Row, indexData:number):Row[]=>
   })
   return updatedRows
 }
+
+const initialNodes = [
+  {
+    id: 'hidden-1',
+    type: 'input',
+    data: { label: 'Node 1' },
+    position: { x: 250, y: 5 },
+  },
+  { id: 'hidden-2', data: { label: 'Node 2' }, position: { x: 100, y: 100 } },
+  { id: 'hidden-3', data: { label: 'Node 3' }, position: { x: 400, y: 100 } },
+  { id: 'hidden-4', data: { label: 'Node 4' }, position: { x: 400, y: 200 } },
+];
+
+const initialEdges = [
+  { id: 'hidden-e1-2', source: 'hidden-1', target: 'hidden-2' },
+  { id: 'hidden-e1-3', source: 'hidden-1', target: 'hidden-3' },
+  { id: 'hidden-e3-4', source: 'hidden-3', target: 'hidden-4' },
+];
+
 const makeHead = ():JSX.Element=>{
   return(
     <tr className='text-lg'>
@@ -107,8 +137,16 @@ const makeBody = ():JSX.Element =>{
           </div>
           
         </div>
-        
         </div>
+        {nodes||edges?<div className='w-full h-96 flex items-center justify-center'>
+            <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                nodeTypes={nodeType}
+            >
+             <Background />
+            </ReactFlow>
+        </div>:''}
     </div>
   )
 }

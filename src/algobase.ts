@@ -1,3 +1,4 @@
+import { Edge, Node } from 'reactflow'
 import { Item, Row } from './types'
 
 export const AlgoBase = (rw:Row[]):Item[]=>{
@@ -14,7 +15,7 @@ export const AlgoBase = (rw:Row[]):Item[]=>{
             const indeMin = minili(rw[index].data)
             const newItem:Item = {
                 tag: rw[index].tag,
-                indexDmd:index,
+                indexDmd:indeMin,
                 valueTag: rw[index].data[indeMin],
                 quantiter:stk[index]<=dmd[indeMin]?stk[index]:dmd[indeMin],
             }
@@ -52,4 +53,56 @@ const minili = (arr:number[]):number=>{
         }
     }
     return indexMin
+}
+
+export const makeGrapheNode = (items: Item[]):Node[]=>{
+    let curentPosX1:number = 0
+    let curentPosX2:number = 0
+    const cot:number = 500/items.length
+    let nodes:Node[]= []
+    items.map((el:Item)=>{
+        if(nodes.find(item=>item.data.label == el.tag) == undefined){
+            const newNode:Node = {
+                id: el.tag,
+                type: 'custom',
+               
+                data: {
+                    label: el.tag
+                },
+                position:{
+                    x: curentPosX1,
+                    y: 40
+                }
+            }
+            nodes = [...nodes, newNode]
+            curentPosX1 +=cot
+        }
+        if(nodes.find(item=>item.data.label == el.indexDmd)== undefined){
+            const newNode:Node = {
+                id: el.indexDmd.toString(),
+                type: 'custom',
+                data: {
+                    label: el.indexDmd.toString()
+                },
+                position:{
+                    x: curentPosX2,
+                    y:200
+                }
+            }
+            nodes = [...nodes, newNode]
+            curentPosX2 +=cot
+        }        
+    })
+    console.log(nodes)
+    return nodes
+}
+
+export const makeGraphEdge = (items :Item[]):Edge[]=>{
+    let edges:Edge[]= []
+    items.map((el:Item)=>{
+        const newEdges:Edge =  { id: el.tag+el.indexDmd, source: el.tag, target: el.indexDmd.toString() }
+        edges = [...edges, newEdges]
+    })
+    console.log(edges)
+    return edges
 }
