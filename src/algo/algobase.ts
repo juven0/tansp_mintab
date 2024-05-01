@@ -1,5 +1,5 @@
 import { Edge, Node } from 'reactflow'
-import { Item, Row } from './types'
+import { Item, Row } from '../types'
 
 
 export const AlgoBase = (rw:Row[]):Item[]=>{
@@ -98,7 +98,7 @@ export const makeGrapheNode = (items: Item[]):Node[]=>{
 export const makeGraphEdge = (items :Item[]):Edge[]=>{
     let edges:Edge[]= []
     items.map((el:Item)=>{
-        const newEdges:Edge =  { id: el.tag+el.indexDmd, source: el.tag, target: el.indexDmd.toString() }
+        const newEdges:Edge =  { id: el.tag+el.indexDmd, source: el.tag, target: el.indexDmd.toString(), animated: true }
         edges = [...edges, newEdges]
     })
     return edges

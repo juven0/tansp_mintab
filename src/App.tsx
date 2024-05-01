@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Item, Row } from './types';
-import { AlgoBase, coutTotal, makeGraphEdge, makeGrapheNode } from './algobase';
+import { AlgoBase, coutTotal, makeGraphEdge, makeGrapheNode } from './algo/algobase';
 import Hero from './pages/hero/hero';
 import ReactFlow, { Background, Edge, Node } from 'reactflow';
 import CustomeNode from './pages/flow/node'
@@ -52,7 +52,7 @@ function App() {
       tag: rows.length == 1? tags[0]: tags[rows.length-1],
       length: cols,
       data: data,
-      isEditable: true
+      isEditable: false
     } 
     const lastRow = rows[rows.length-1]
     rows.length<2?
