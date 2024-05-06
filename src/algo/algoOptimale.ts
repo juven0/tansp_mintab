@@ -1,9 +1,12 @@
 
 // A- Calcul potentiel
 
+import { Edge } from "reactflow";
+
 // Étape 1 : mitady ny valeur maximale parmi toutes les cellules mi affihe eo am le graphe
+const Optimale = (edges: Edge[])=>{
 const valeursCellules: number[] = []; // stockena anat tableau n valeurs n cellules rehetra ahita am le graphe 
-edges.forEach((edge: any) => {
+edges.forEach((edge: Edge) => {
     const sourceNodeId: string = edge.source;
     const destinationNodeId: string = edge.target; //target : destination , edge: arete
     const sourceNodeValue: number = getValueOfNode(sourceNodeId); // pour obtenir la valeur de la cellule du nœud source
@@ -146,3 +149,4 @@ function calculateOptimalSolution(baseSolution: any, potentials: { [key: string]
 }
 
 const optimalSolution: any = calculateOptimalSolution(baseSolution, potentials, graph);
+}

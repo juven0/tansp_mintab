@@ -11,3 +11,8 @@ export type Item = {
     valueTag: number
     quantiter:number
 }
+
+export type PotentialNode = {
+    node: string
+    value:number
+}

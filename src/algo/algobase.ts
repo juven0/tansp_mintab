@@ -98,7 +98,7 @@ export const makeGrapheNode = (items: Item[]):Node[]=>{
 export const makeGraphEdge = (items :Item[]):Edge[]=>{
     let edges:Edge[]= []
     items.map((el:Item)=>{
-        const newEdges:Edge =  { id: el.tag+el.indexDmd, source: el.tag, target: el.indexDmd.toString(), animated: true }
+        const newEdges:Edge =  { id: el.tag+el.indexDmd, source: el.tag, target: el.indexDmd.toString(),data:{value: el.valueTag, checked: false}, animated: true }
         edges = [...edges, newEdges]
     })
     return edges
